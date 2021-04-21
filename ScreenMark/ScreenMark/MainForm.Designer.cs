@@ -151,7 +151,7 @@ namespace ScreenMark
         	this.markSizeToolStripMenuItem.Name = "markSizeToolStripMenuItem";
         	this.markSizeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
         	this.markSizeToolStripMenuItem.Text = "&Mark size";
-        	this.markSizeToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MarkSizeToolStripMenuItemDropDownItemClicked);
+        	this.markSizeToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnMarkSizeToolStripMenuItemDropDownItemClicked);
         	// 
         	// setPercentageToolStripMenuItem
         	// 
