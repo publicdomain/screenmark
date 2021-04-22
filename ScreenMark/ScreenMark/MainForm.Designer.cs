@@ -46,8 +46,8 @@ namespace ScreenMark
         	this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.markSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.setPercentageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.setPixelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.setPercentageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.pixelRoundingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.floorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.ceilingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,17 +153,17 @@ namespace ScreenMark
         	this.markSizeToolStripMenuItem.Text = "&Mark size";
         	this.markSizeToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnMarkSizeToolStripMenuItemDropDownItemClicked);
         	// 
-        	// setPercentageToolStripMenuItem
-        	// 
-        	this.setPercentageToolStripMenuItem.Name = "setPercentageToolStripMenuItem";
-        	this.setPercentageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-        	this.setPercentageToolStripMenuItem.Text = "&Set percentage";
-        	// 
         	// setPixelsToolStripMenuItem
         	// 
         	this.setPixelsToolStripMenuItem.Name = "setPixelsToolStripMenuItem";
         	this.setPixelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.setPixelsToolStripMenuItem.Text = "&Set pixels (50)";
+        	// 
+        	// setPercentageToolStripMenuItem
+        	// 
+        	this.setPercentageToolStripMenuItem.Name = "setPercentageToolStripMenuItem";
+        	this.setPercentageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.setPercentageToolStripMenuItem.Text = "&Set percentage";
         	// 
         	// pixelRoundingToolStripMenuItem
         	// 
@@ -173,20 +173,20 @@ namespace ScreenMark
         	this.pixelRoundingToolStripMenuItem.Name = "pixelRoundingToolStripMenuItem";
         	this.pixelRoundingToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
         	this.pixelRoundingToolStripMenuItem.Text = "Pixel rounding";
-        	this.pixelRoundingToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnOptionsToolStripMenuItemDropDownItemClicked);
+        	this.pixelRoundingToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnPixelRoundingToolStripMenuItemDropDownItemClicked);
         	// 
         	// floorToolStripMenuItem
         	// 
         	this.floorToolStripMenuItem.Checked = true;
         	this.floorToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
         	this.floorToolStripMenuItem.Name = "floorToolStripMenuItem";
-        	this.floorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.floorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
         	this.floorToolStripMenuItem.Text = "&Floor";
         	// 
         	// ceilingToolStripMenuItem
         	// 
         	this.ceilingToolStripMenuItem.Name = "ceilingToolStripMenuItem";
-        	this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
         	this.ceilingToolStripMenuItem.Text = "&Ceiling";
         	// 
         	// enablehotkeysToolStripMenuItem
@@ -340,6 +340,7 @@ namespace ScreenMark
         	this.Name = "MainForm";
         	this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         	this.Text = "ScreenMark";
+        	this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnMainFormFormClosing);
         	this.statusStrip.ResumeLayout(false);
         	this.statusStrip.PerformLayout();
         	this.menuStrip.ResumeLayout(false);

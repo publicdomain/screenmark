@@ -27,7 +27,17 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the exit tool strip menu item click.
+        /// Handles the mark button click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMarkButtonClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the exit tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -38,7 +48,7 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the more releases public domain giftcom tool strip menu item click.
+        /// Handles the more releases public domain giftcom tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -49,7 +59,7 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the original thread donation codercom tool strip menu item click.
+        /// Handles the original thread donation codercom tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -60,28 +70,42 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the source code githubcom tool strip menu item click.
+        /// Handles the source code githubcom tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
         {
             // Open GitHub repository
-            Process.Start("https://github.com/publicdomain/limitpad");
+            Process.Start("https://github.com/publicdomain/screenmark");
         }
 
         /// <summary>
-        /// Ons the options tool strip menu item drop down item clicked.
+        /// Handles the options tool strip menu item drop down item clicked event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Toggle checked
+            clickedItem.Checked = !clickedItem.Checked;
+        }
+
+        /// <summary>
+        /// Marks the size tool strip menu item drop down item clicked event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMarkSizeToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
             // TODO Add code
         }
 
         /// <summary>
-        /// Ons the about tool strip menu item click.
+        /// Handles the about tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -91,7 +115,7 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the screen center radio button checked changed.
+        /// Handles the screen center radio button checked changed event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
@@ -101,21 +125,32 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Ons the mark button click.
+        /// Handles the pixel rounding tool strip menu item drop down item clicked event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnMarkButtonClick(object sender, EventArgs e)
+        private void OnPixelRoundingToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Uncheck all
+            foreach (ToolStripMenuItem item in this.pixelRoundingToolStripMenuItem.DropDownItems)
+            {
+                // Uncheck
+                item.Checked = false;
+            }
+
+            // Toggle checked
+            clickedItem.Checked = !clickedItem.Checked;
         }
 
         /// <summary>
-        /// Marks the size tool strip menu item drop down item clicked.
+        /// Handles the main form form closing event.
         /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnMarkSizeToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
+        private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // TODO Add code
         }
