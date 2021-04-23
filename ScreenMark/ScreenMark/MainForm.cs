@@ -10,7 +10,11 @@ namespace ScreenMark
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
+    using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
+    using System.Xml.Serialization;
+    using PublicDomain;
 
     /// <summary>
     /// Description of MainForm.
@@ -18,12 +22,37 @@ namespace ScreenMark
     public partial class MainForm : Form
     {
         /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
+        /// The settings data.
+        /// </summary>
+        private SettingsData settingsData = null;
+
+        /// <summary>
+        /// The settings data path.
+        /// </summary>
+        private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Settings data */
+
+            // Check for settings file
+            if (!File.Exists(this.settingsDataPath))
+            {
+                // Create new settings file
+                this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+            }
         }
 
         /// <summary>
@@ -90,6 +119,13 @@ namespace ScreenMark
             // Set clicked item
             var clickedItem = (ToolStripMenuItem)e.ClickedItem;
 
+            // Exclude sub-menus
+            if (clickedItem.DropDownItems.Count > 0)
+            {
+                // Halt flow
+                return;
+            }
+
             // Toggle checked
             clickedItem.Checked = !clickedItem.Checked;
         }
@@ -119,9 +155,26 @@ namespace ScreenMark
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnScreenCenterRadioButtonCheckedChanged(object sender, EventArgs e)
+        private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set name
+            string radioButtonName = ((RadioButton)sender).Name;
+
+            // Iterate radio buttons
+            foreach (RadioButton radioButton in this.mainTableLayoutPanel.Controls.OfType<RadioButton>())
+            {
+                // Check for clicked
+                if (radioButton.Name != radioButtonName)
+                {
+                    // Reset 
+                    radioButton.Font = new Font(radioButton.Font, radioButton.Font.Style & ~FontStyle.Bold);
+                }
+                else
+                {
+                    // Set 
+                    radioButton.Font = new Font(radioButton.Font, radioButton.Font.Style | FontStyle.Bold);
+                }
+            }
         }
 
         /// <summary>
@@ -146,13 +199,67 @@ namespace ScreenMark
         }
 
         /// <summary>
+        /// Ons the mark pen tool strip menu item drop down item clicked.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMarkPenToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Check for color
+            if (clickedItem.Name == this.colorToolStripMenuItem.Name)
+            {
+                // Show color dialog
+                DialogResult dialogResult = this.markColorDialog.ShowDialog();
+
+                // Check the user clicked OK
+                if (dialogResult == DialogResult.OK)
+                {
+                    // Set mark color on settings data
+                    //this.settingsData.MarkColor = this.markColorDialog.Color;
+
+                    // Set menu item text
+                    this.colorToolStripMenuItem.Text = $"&Color ({this.markColorDialog.Color.Name})";
+                }
+            }
+        }
+
+        /// <summary>
         /// Handles the main form form closing event.
         /// </summary>
-        /// <param name="sender">Sender.</param>
-        /// <param name="e">E.</param>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// Saves the settings file.
+        /// </summary>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        /// <param name="settingsDataParam">Settings data parameter.</param>
+        private void SaveSettingsFile(string settingsFilePath, SettingsData settingsDataParam)
+        {
+            try
+            {
+                // Use stream writer
+                using (StreamWriter streamWriter = new StreamWriter(settingsFilePath, false))
+                {
+                    // Set xml serialzer
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                    // Serialize settings data
+                    xmlSerializer.Serialize(streamWriter, settingsDataParam);
+                }
+            }
+            catch (Exception exception)
+            {
+                // Advise user
+                MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
