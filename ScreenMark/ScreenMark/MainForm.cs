@@ -53,6 +53,9 @@ namespace ScreenMark
                 // Create new settings file
                 this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
             }
+
+            // Load settings from disk
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
         }
 
         /// <summary>
@@ -234,6 +237,24 @@ namespace ScreenMark
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// Loads the settings file.
+        /// </summary>
+        /// <returns>The settings file.</returns>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        private SettingsData LoadSettingsFile(string settingsFilePath)
+        {
+            // Use file stream
+            using (FileStream fileStream = File.OpenRead(settingsFilePath))
+            {
+                // Set xml serialzer
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                // Return populated settings data
+                return xmlSerializer.Deserialize(fileStream) as SettingsData;
+            }
         }
 
         /// <summary>
