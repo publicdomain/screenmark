@@ -220,13 +220,22 @@ namespace ScreenMark
                 // Check the user clicked OK
                 if (dialogResult == DialogResult.OK)
                 {
-                    // Set mark color on settings data
-                    //this.settingsData.MarkColor = this.markColorDialog.Color;
-
-                    // Set menu item text
-                    this.colorToolStripMenuItem.Text = $"&Color ({this.markColorDialog.Color.Name})";
+                    // Set mark color
+                    this.SetMarkColor();
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets the color of the mark.
+        /// </summary>
+        private void SetMarkColor()
+        {
+            // Set mark color on settings data
+            this.settingsData.MarkColor = this.markColorDialog.Color;
+
+            // Set menu item text
+            this.colorToolStripMenuItem.Text = $"&Color ({this.markColorDialog.Color.Name})";
         }
 
         /// <summary>
