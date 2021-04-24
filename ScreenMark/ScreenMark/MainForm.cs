@@ -56,6 +56,9 @@ namespace ScreenMark
 
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            // Set mark color
+            this.SetMarkColor(false);
         }
 
         /// <summary>
@@ -221,7 +224,7 @@ namespace ScreenMark
                 if (dialogResult == DialogResult.OK)
                 {
                     // Set mark color
-                    this.SetMarkColor();
+                    this.SetMarkColor(true);
                 }
             }
         }
@@ -229,13 +232,20 @@ namespace ScreenMark
         /// <summary>
         /// Sets the color of the mark.
         /// </summary>
-        private void SetMarkColor()
+        /// <param name="setSettingsData">If set to <c>true</c> set settings data.</param>
+        private void SetMarkColor(bool setSettingsData)
         {
-            // Set mark color on settings data
-            this.settingsData.MarkColor = this.markColorDialog.Color;
-
             // Set menu item text
             this.colorToolStripMenuItem.Text = $"&Color ({this.markColorDialog.Color.Name})";
+
+            // Test for no settings data
+            if (!setSettingsData)
+            {
+                return;
+            }
+
+            // Set mark color on settings data
+            this.settingsData.MarkColor = this.markColorDialog.Color;
         }
 
         /// <summary>
