@@ -52,5 +52,12 @@ namespace PublicDomain
         /// </summary>
         /// <value>The mark size piercentage.</value>
         public int markSizePiercentage { get; set; } = -1;
+
+        /// <summary>
+        /// Gets or sets the selected radio button.
+        /// </summary>
+        /// <value>The selected radio button.</value>
+        public string selectedRadioButton { get; set; } = "screenCenterRadioButton";
+
     }
 }
