@@ -299,6 +299,12 @@ namespace ScreenMark
                     radioButton.Font = new Font(radioButton.Font, radioButton.Font.Style | FontStyle.Bold);
                 }
             }
+
+            // Set on settings data
+            this.settingsData.selectedRadioButton = radioButtonName;
+
+            // Set draw target variable
+            this.SetDrawTarget();
         }
 
         /// <summary>
