@@ -58,6 +58,5 @@ namespace PublicDomain
         /// </summary>
         /// <value>The selected radio button.</value>
         public string selectedRadioButton { get; set; } = "screenCenterRadioButton";
-
     }
 }

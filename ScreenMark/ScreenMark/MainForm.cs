@@ -39,6 +39,11 @@ namespace ScreenMark
         private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
 
         /// <summary>
+        /// The draw target. [0 = Screen, 1= Working area, 2 = Active window]
+        /// </summary>
+        private int drawTarget = 0;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -78,6 +83,36 @@ namespace ScreenMark
             {
                 // Percentage
                 this.SetMarkSize("percentage", this.settingsData.markSizePiercentage);
+            }
+
+            // TODO Set checked radio button [Can be improved]
+            foreach (RadioButton radioButton in this.mainTableLayoutPanel.Controls.OfType<RadioButton>())
+            {
+                // Check for matching name
+                if (radioButton.Name == this.settingsData.selectedRadioButton)
+                {
+                    // Set checked state
+                    radioButton.Checked = true;
+                }
+            }
+
+            // Set draw target 
+            switch (this.settingsData.selectedRadioButton)
+            {
+                // 0 = Center screen
+                case "screenCenterRadioButton":
+                    this.drawTarget = 0;
+                    break;
+
+                // 1 = Center working area
+                case "workingAreaCenterRadioButton":
+                    this.drawTarget = 1;
+                    break;
+
+                // 2 = Center active window
+                case "activeWindowCenterRadioButton":
+                    this.drawTarget = 2;
+                    break;
             }
         }
 

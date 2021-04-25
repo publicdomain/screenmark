@@ -50,6 +50,7 @@ namespace ScreenMark
             this.setPercentageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.markPenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.width5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pixelRoundingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ceilingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,6 @@ namespace ScreenMark
             this.workingAreaCenterRadioButton = new System.Windows.Forms.RadioButton();
             this.activeWindowCenterRadioButton = new System.Windows.Forms.RadioButton();
             this.markColorDialog = new System.Windows.Forms.ColorDialog();
-            this.width5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
@@ -183,8 +183,14 @@ namespace ScreenMark
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.colorToolStripMenuItem.Text = "&Color";
+            // 
+            // width5ToolStripMenuItem
+            // 
+            this.width5ToolStripMenuItem.Name = "width5ToolStripMenuItem";
+            this.width5ToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.width5ToolStripMenuItem.Text = "&Width";
             // 
             // pixelRoundingToolStripMenuItem
             // 
@@ -199,13 +205,13 @@ namespace ScreenMark
             // floorToolStripMenuItem
             // 
             this.floorToolStripMenuItem.Name = "floorToolStripMenuItem";
-            this.floorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.floorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.floorToolStripMenuItem.Text = "&Floor";
             // 
             // ceilingToolStripMenuItem
             // 
             this.ceilingToolStripMenuItem.Name = "ceilingToolStripMenuItem";
-            this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.ceilingToolStripMenuItem.Text = "&Ceiling";
             // 
             // enablehotkeysToolStripMenuItem
@@ -221,6 +227,7 @@ namespace ScreenMark
             this.markAllScreensToolStripMenuItem.Name = "markAllScreensToolStripMenuItem";
             this.markAllScreensToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.markAllScreensToolStripMenuItem.Text = "Mark &all screens";
+            this.markAllScreensToolStripMenuItem.Visible = false;
             // 
             // moveCursorToMarkToolStripMenuItem
             // 
@@ -308,14 +315,12 @@ namespace ScreenMark
             // 
             // screenCenterRadioButton
             // 
-            this.screenCenterRadioButton.Checked = true;
             this.screenCenterRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.screenCenterRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.screenCenterRadioButton.Location = new System.Drawing.Point(3, 3);
             this.screenCenterRadioButton.Name = "screenCenterRadioButton";
             this.screenCenterRadioButton.Size = new System.Drawing.Size(190, 33);
             this.screenCenterRadioButton.TabIndex = 1;
-            this.screenCenterRadioButton.TabStop = true;
             this.screenCenterRadioButton.Text = "&Screen center";
             this.screenCenterRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.screenCenterRadioButton.UseVisualStyleBackColor = true;
@@ -351,18 +356,12 @@ namespace ScreenMark
             // 
             this.markColorDialog.Color = System.Drawing.Color.Blue;
             // 
-            // width5ToolStripMenuItem
-            // 
-            this.width5ToolStripMenuItem.Name = "width5ToolStripMenuItem";
-            this.width5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.width5ToolStripMenuItem.Text = "&Width";
-            // 
             // MainForm
             // 
             this.AcceptButton = this.markButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(196, 205);
+            this.ClientSize = new System.Drawing.Size(205, 210);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
@@ -371,6 +370,7 @@ namespace ScreenMark
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ScreenMark";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnMainFormFormClosing);
+            this.Load += new System.EventHandler(this.MainFormLoad);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
