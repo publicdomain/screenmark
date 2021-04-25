@@ -370,7 +370,6 @@ namespace ScreenMark
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ScreenMark";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnMainFormFormClosing);
-            this.Load += new System.EventHandler(this.MainFormLoad);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);

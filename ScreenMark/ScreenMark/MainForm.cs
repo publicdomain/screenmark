@@ -96,6 +96,15 @@ namespace ScreenMark
                 }
             }
 
+            // Set draw target variable
+            this.SetDrawTarget();
+        }
+
+        /// <summary>
+        /// Sets the draw target.
+        /// </summary>
+        private void SetDrawTarget()
+        {
             // Set draw target 
             switch (this.settingsData.selectedRadioButton)
             {
