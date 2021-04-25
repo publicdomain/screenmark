@@ -29,6 +29,28 @@ namespace PublicDomain
         /// <value>The color of the mark.</value>
         public Color MarkColor { get; set; } = Color.Blue;
 
+        /// <summary>
+        /// Gets or sets the width of the pen.
+        /// </summary>
+        /// <value>The width of the pen.</value>
+        public int PenWidth { get; set; } = 5;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> floor rounding.
+        /// </summary>
+        /// <value><c>true</c> if floor rounding; otherwise, <c>false</c>.</value>
+        public bool FloorRounding { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the mark size pixels.
+        /// </summary>
+        /// <value>The mark size pixels.</value>
+        public int markSizePixels { get; set; } = 50;
+
+        /// <summary>
+        /// Gets or sets the mark size piercentage.
+        /// </summary>
+        /// <value>The mark size piercentage.</value>
+        public int markSizePiercentage { get; set; } = -1;
     }
 }

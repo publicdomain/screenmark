@@ -162,7 +162,7 @@ namespace ScreenMark
             // 
             this.setPixelsToolStripMenuItem.Name = "setPixelsToolStripMenuItem";
             this.setPixelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.setPixelsToolStripMenuItem.Text = "&Set pixels (50)";
+            this.setPixelsToolStripMenuItem.Text = "&Set pixels";
             // 
             // setPercentageToolStripMenuItem
             // 
@@ -198,8 +198,6 @@ namespace ScreenMark
             // 
             // floorToolStripMenuItem
             // 
-            this.floorToolStripMenuItem.Checked = true;
-            this.floorToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.floorToolStripMenuItem.Name = "floorToolStripMenuItem";
             this.floorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.floorToolStripMenuItem.Text = "&Floor";
@@ -312,7 +310,7 @@ namespace ScreenMark
             // 
             this.screenCenterRadioButton.Checked = true;
             this.screenCenterRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.screenCenterRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.screenCenterRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.screenCenterRadioButton.Location = new System.Drawing.Point(3, 3);
             this.screenCenterRadioButton.Name = "screenCenterRadioButton";
             this.screenCenterRadioButton.Size = new System.Drawing.Size(190, 33);
@@ -357,7 +355,7 @@ namespace ScreenMark
             // 
             this.width5ToolStripMenuItem.Name = "width5ToolStripMenuItem";
             this.width5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.width5ToolStripMenuItem.Text = "&Width (5)";
+            this.width5ToolStripMenuItem.Text = "&Width";
             // 
             // MainForm
             // 

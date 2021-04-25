@@ -14,6 +14,7 @@ namespace ScreenMark
     using System.Linq;
     using System.Windows.Forms;
     using System.Xml.Serialization;
+    using Microsoft.VisualBasic;
     using PublicDomain;
 
     /// <summary>
@@ -59,6 +60,25 @@ namespace ScreenMark
 
             // Set mark color
             this.SetMarkColor(false);
+
+            // Set width menu item text
+            this.width5ToolStripMenuItem.Text = $"&Width ({this.settingsData.PenWidth})";
+
+            // Set rounding checked state
+            this.floorToolStripMenuItem.Checked = this.settingsData.FloorRounding;
+            this.ceilingToolStripMenuItem.Checked = !this.settingsData.FloorRounding;
+
+            // Set mark size
+            if (this.settingsData.markSizePixels > -1)
+            {
+                // Pixel
+                this.SetMarkSize("pixel", this.settingsData.markSizePixels);
+            }
+            else
+            {
+                // Percentage
+                this.SetMarkSize("percentage", this.settingsData.markSizePiercentage);
+            }
         }
 
         /// <summary>
@@ -143,7 +163,61 @@ namespace ScreenMark
         /// <param name="e">Event arguments.</param>
         private void OnMarkSizeToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Parsed integer
+            int parsedInt;
+
+            // Check for pixels
+            if (clickedItem.Name == this.setPixelsToolStripMenuItem.Name)
+            {
+                // Try to parse integer from user input
+                if (int.TryParse(Interaction.InputBox("Please enter pixels (integer):", "Pixels"), out parsedInt) && parsedInt > 0)
+                {
+                    // Set pixels
+                    this.SetMarkSize("pixel", parsedInt);
+                }
+            }
+            else // Set percentage
+            {
+                // Try to parse integer from user input
+                if (int.TryParse(Interaction.InputBox("Please enter percentage (integer):", "Pixels"), out parsedInt) && parsedInt > 0)
+                {
+                    // Set percentage
+                    this.SetMarkSize("percentage+", parsedInt);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the size of the mark.
+        /// </summary>
+        /// <param name="target">Target.</param>
+        /// <param name="value">Value.</param>
+        private void SetMarkSize(string target, int value)
+        {
+            // Check target
+            if (target == "pixel")
+            {
+                // Set on settings data
+                this.settingsData.markSizePixels = value;
+                this.settingsData.markSizePiercentage = -1;
+
+                // Set menu item text
+                this.setPixelsToolStripMenuItem.Text = $"&Set pixels ({value})";
+                this.setPercentageToolStripMenuItem.Text = "&Set percentage";
+            }
+            else
+            {
+                // Set on settings data
+                this.settingsData.markSizePixels = -1;
+                this.settingsData.markSizePiercentage = value;
+
+                // Set menu item text
+                this.setPixelsToolStripMenuItem.Text = "&Set pixels";
+                this.setPercentageToolStripMenuItem.Text = $"&Set percentage ({value})";
+            }
         }
 
         /// <summary>
@@ -225,6 +299,21 @@ namespace ScreenMark
                 {
                     // Set mark color
                     this.SetMarkColor(true);
+                }
+            }
+            else // Pen width
+            {
+                // Pen width
+                int penWidth;
+
+                // Try to get width
+                if (int.TryParse(Interaction.InputBox("Please enter pen width", "Width"), out penWidth) && penWidth > 0)
+                {
+                    // Set on settings data
+                    this.settingsData.PenWidth = penWidth;
+
+                    // Set width text
+                    this.width5ToolStripMenuItem.Text = $"&Width ({penWidth})";
                 }
             }
         }
