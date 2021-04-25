@@ -12,6 +12,7 @@ namespace ScreenMark
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using Microsoft.VisualBasic;
@@ -44,6 +45,22 @@ namespace ScreenMark
         private int drawTarget = 0;
 
         /// <summary>
+        /// Gets the dc.
+        /// </summary>
+        /// <returns>The dc.</returns>
+        /// <param name="hwnd">Hwnd.</param>
+        [DllImport("User32.dll")]
+        public static extern IntPtr GetDC(IntPtr hwnd);
+
+        /// <summary>
+        /// Releases the dc.
+        /// </summary>
+        /// <param name="hwnd">Hwnd.</param>
+        /// <param name="dc">Dc.</param>
+        [DllImport("User32.dll")]
+        public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -74,22 +91,22 @@ namespace ScreenMark
             this.ceilingToolStripMenuItem.Checked = !this.settingsData.FloorRounding;
 
             // Set mark size
-            if (this.settingsData.markSizePixels > -1)
+            if (this.settingsData.MarkSizePixels > -1)
             {
                 // Pixel
-                this.SetMarkSize("pixel", this.settingsData.markSizePixels);
+                this.SetMarkSize("pixel", this.settingsData.MarkSizePixels);
             }
             else
             {
                 // Percentage
-                this.SetMarkSize("percentage", this.settingsData.markSizePiercentage);
+                this.SetMarkSize("percentage", this.settingsData.MarkSizePiercentage);
             }
 
             // TODO Set checked radio button [Can be improved]
             foreach (RadioButton radioButton in this.mainTableLayoutPanel.Controls.OfType<RadioButton>())
             {
                 // Check for matching name
-                if (radioButton.Name == this.settingsData.selectedRadioButton)
+                if (radioButton.Name == this.settingsData.SelectedRadioButton)
                 {
                     // Set checked state
                     radioButton.Checked = true;
@@ -98,6 +115,9 @@ namespace ScreenMark
 
             // Set draw target variable
             this.SetDrawTarget();
+
+            // Set interval text 
+            this.setToolStripMenuItem.Text = $"&Set ({this.settingsData.DrawInterval})";
         }
 
         /// <summary>
@@ -106,7 +126,7 @@ namespace ScreenMark
         private void SetDrawTarget()
         {
             // Set draw target 
-            switch (this.settingsData.selectedRadioButton)
+            switch (this.settingsData.SelectedRadioButton)
             {
                 // 0 = Center screen
                 case "screenCenterRadioButton":
@@ -245,8 +265,8 @@ namespace ScreenMark
             if (target == "pixel")
             {
                 // Set on settings data
-                this.settingsData.markSizePixels = value;
-                this.settingsData.markSizePiercentage = -1;
+                this.settingsData.MarkSizePixels = value;
+                this.settingsData.MarkSizePiercentage = -1;
 
                 // Set menu item text
                 this.setPixelsToolStripMenuItem.Text = $"&Set pixels ({value})";
@@ -255,8 +275,8 @@ namespace ScreenMark
             else
             {
                 // Set on settings data
-                this.settingsData.markSizePixels = -1;
-                this.settingsData.markSizePiercentage = value;
+                this.settingsData.MarkSizePixels = -1;
+                this.settingsData.MarkSizePiercentage = value;
 
                 // Set menu item text
                 this.setPixelsToolStripMenuItem.Text = "&Set pixels";
@@ -301,7 +321,7 @@ namespace ScreenMark
             }
 
             // Set on settings data
-            this.settingsData.selectedRadioButton = radioButtonName;
+            this.settingsData.SelectedRadioButton = radioButtonName;
 
             // Set draw target variable
             this.SetDrawTarget();
@@ -439,6 +459,52 @@ namespace ScreenMark
                 // Advise user
                 MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Handles the draw interval tool strip menu item drop down item clicked event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnDrawIntervalToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Draw interval [set to please compiler / unassigned variable]
+            int drawInterval = 50;
+
+            // Check for set
+            if (clickedItem.Text.StartsWith("&S", StringComparison.InvariantCulture))
+            {
+                // Try to get interval
+                if (int.TryParse(Interaction.InputBox("Please enter draw interval (milliseconds)", "Interval", this.settingsData.DrawInterval.ToString()), out drawInterval) && drawInterval > 0)
+                {
+                    // Halt flow
+                    return;
+                }
+            }
+            else
+            {
+                // Set interval
+                drawInterval = int.Parse(clickedItem.Text.Substring(0, clickedItem.Text.IndexOf(" ", StringComparison.InvariantCulture) + 1));
+            }
+
+            // Set interval text
+            this.setToolStripMenuItem.Text = $"&Set ({drawInterval})";
+
+            // Set on settings data
+            this.settingsData.DrawInterval = drawInterval;
+        }
+
+        /// <summary>
+        /// Handles the draw interval timer tick event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnDrawIntervalTimerTick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }

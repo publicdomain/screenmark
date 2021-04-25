@@ -45,18 +45,24 @@ namespace PublicDomain
         /// Gets or sets the mark size pixels.
         /// </summary>
         /// <value>The mark size pixels.</value>
-        public int markSizePixels { get; set; } = 50;
+        public int MarkSizePixels { get; set; } = 50;
 
         /// <summary>
         /// Gets or sets the mark size piercentage.
         /// </summary>
         /// <value>The mark size piercentage.</value>
-        public int markSizePiercentage { get; set; } = -1;
+        public int MarkSizePiercentage { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the selected radio button.
         /// </summary>
         /// <value>The selected radio button.</value>
-        public string selectedRadioButton { get; set; } = "screenCenterRadioButton";
+        public string SelectedRadioButton { get; set; } = "screenCenterRadioButton";
+
+        /// <summary>
+        /// Gets or sets the draw interval.
+        /// </summary>
+        /// <value>The draw interval.</value>
+        public int DrawInterval { get; set; } = 50;
     }
 }
