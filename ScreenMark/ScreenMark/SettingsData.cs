@@ -24,6 +24,23 @@ namespace PublicDomain
         }
 
         /// <summary>
+        /// The top most.
+        /// </summary>
+        public bool TopMost { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> enable hotkeys.
+        /// </summary>
+        /// <value><c>true</c> if enable hotkeys; otherwise, <c>false</c>.</value>
+        public bool EnableHotkeys { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> move cursor to mark.
+        /// </summary>
+        /// <value><c>true</c> if move cursor to mark; otherwise, <c>false</c>.</value>
+        public bool MoveCursorToMark { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets the color of the mark.
         /// </summary>
         /// <value>The color of the mark.</value>

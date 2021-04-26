@@ -118,6 +118,16 @@ namespace ScreenMark
 
             // Set interval text 
             this.setToolStripMenuItem.Text = $"&Set ({this.settingsData.DrawInterval})";
+
+            // Topmost
+            this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.TopMost;
+            this.TopMost = this.settingsData.TopMost;
+
+            // Move cursor
+            this.moveCursorToMarkToolStripMenuItem.Checked = this.settingsData.MoveCursorToMark;
+
+            // TODO Enable Hotkeys
+            this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
         }
 
         /// <summary>
@@ -218,6 +228,10 @@ namespace ScreenMark
 
             // Toggle checked
             clickedItem.Checked = !clickedItem.Checked;
+
+            /* Process actions and save settings*/
+
+
         }
 
         /// <summary>
@@ -346,6 +360,9 @@ namespace ScreenMark
 
             // Toggle checked
             clickedItem.Checked = !clickedItem.Checked;
+
+            // Float rounding
+            this.settingsData.FloorRounding = this.floorToolStripMenuItem.Checked;
         }
 
         /// <summary>
@@ -414,7 +431,8 @@ namespace ScreenMark
         /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            // TODO Add code
+            // Save settings data to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
 
         /// <summary>
