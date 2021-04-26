@@ -243,7 +243,23 @@ namespace ScreenMark
         /// <param name="e">Event arguments.</param>
         private void OnMarkButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Check current text
+            if (this.markButton.Text.StartsWith("&M", StringComparison.InvariantCulture))
+            {
+                // Set text 
+                this.markButton.Text = "&Stop";
+
+                // Enable timer
+                this.drawIntervalTimer.Start();
+            }
+            else
+            {
+                // Set text 
+                this.markButton.Text = "&Mark";
+
+                // Enable timer
+                this.drawIntervalTimer.Stop();
+            }
         }
 
         /// <summary>
