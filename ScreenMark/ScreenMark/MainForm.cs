@@ -231,6 +231,26 @@ namespace ScreenMark
 
             /* Process actions and save settings*/
 
+            // Act based on name
+            switch (clickedItem.Name)
+            {
+                // Topmost
+                case "alwaysOnTopToolStripMenuItem":
+                    this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+                    this.settingsData.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+                    break;
+
+                // Hotkeys
+                case "enablehotkeysToolStripMenuItem":
+                    //TODO Enable Hotkeys
+                    this.settingsData.EnableHotkeys = this.enablehotkeysToolStripMenuItem.Checked;
+                    break;
+
+                // Move cursor
+                case "moveCursorToMarkToolStripMenuItem":
+                    this.settingsData.MoveCursorToMark = this.moveCursorToMarkToolStripMenuItem.Checked;
+                    break;
+            }
 
         }
 
