@@ -45,6 +45,46 @@ namespace ScreenMark
         private int drawTarget = 0;
 
         /// <summary>
+        /// The mod shift.
+        /// </summary>
+        public const int MOD_SHIFT = 0x4;
+
+        /// <summary>
+        /// The mod control.
+        /// </summary>
+        public const int MOD_CONTROL = 0x2;
+
+        /// <summary>
+        /// The mod alternate.
+        /// </summary>
+        public const int MOD_ALT = 0x1;
+
+        /// <summary>
+        /// The wm hotkey.
+        /// </summary>
+        private const int WM_HOTKEY = 0x312;
+
+        /// <summary>
+        /// Registers the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        /// <param name="fsModifiers">Fs modifiers.</param>
+        /// <param name="vk">Vk.</param>
+        [DllImport("User32")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+
+        /// <summary>
+        /// Unregisters the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        [DllImport("User32")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        /// <summary>
         /// Gets the dc.
         /// </summary>
         /// <returns>The dc.</returns>
@@ -128,6 +168,47 @@ namespace ScreenMark
 
             // TODO Enable Hotkeys
             this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
+        }
+
+        /// <summary>
+        /// Window procedure.
+        /// </summary>
+        /// <param name="m">M.</param>
+        protected override void WndProc(ref Message m)
+        {
+            try
+            {
+                // Check for hotkey message and there are hotkeys registered
+                if (m.Msg == WM_HOTKEY)
+                {
+                    // Hit mark button
+                    this.markButton.PerformClick();
+                }
+            }
+            catch
+            {
+                // TODO Advise user
+            }
+
+            base.WndProc(ref m);
+        }
+
+        /// <summary>
+        /// Registers the hotkeys.
+        /// </summary>
+        public void RegisterHotkeys()
+        {
+            // Register ALT + SHIFT + M
+            RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.M));
+        }
+
+        /// <summary>
+        /// Unregisters the hotkeys.
+        /// </summary>
+        public void UnregisterHotkeys()
+        {
+            // Unregister active hotkey
+            UnregisterHotKey(this.Handle, 0);
         }
 
         /// <summary>
@@ -242,7 +323,16 @@ namespace ScreenMark
 
                 // Hotkeys
                 case "enablehotkeysToolStripMenuItem":
-                    //TODO Enable Hotkeys
+                    // Enable/Disable hotkeys
+                    if (this.enablehotkeysToolStripMenuItem.Checked)
+                    {
+                        this.RegisterHotkeys();
+                    }
+                    else
+                    {
+                        this.UnregisterHotkeys();
+                    }
+
                     this.settingsData.EnableHotkeys = this.enablehotkeysToolStripMenuItem.Checked;
                     break;
 
