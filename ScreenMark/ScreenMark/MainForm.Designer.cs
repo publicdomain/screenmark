@@ -46,6 +46,7 @@ namespace ScreenMark
         	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.drawIntervalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.setToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.msToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.msToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.msToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@ namespace ScreenMark
         	this.msToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
         	this.msToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
         	this.msToolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-        	this.setToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.markSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.setPixelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -142,10 +142,10 @@ namespace ScreenMark
         	this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.drawIntervalToolStripMenuItem,
         	        	        	this.alwaysOnTopToolStripMenuItem,
+        	        	        	this.enablehotkeysToolStripMenuItem,
         	        	        	this.markSizeToolStripMenuItem,
         	        	        	this.markPenToolStripMenuItem,
         	        	        	this.pixelRoundingToolStripMenuItem,
-        	        	        	this.enablehotkeysToolStripMenuItem,
         	        	        	this.markAllScreensToolStripMenuItem,
         	        	        	this.moveCursorToMarkToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
@@ -170,59 +170,59 @@ namespace ScreenMark
         	this.drawIntervalToolStripMenuItem.Text = "&Draw interval";
         	this.drawIntervalToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnDrawIntervalToolStripMenuItemDropDownItemClicked);
         	// 
+        	// setToolStripMenuItem
+        	// 
+        	this.setToolStripMenuItem.Name = "setToolStripMenuItem";
+        	this.setToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+        	this.setToolStripMenuItem.Text = "&Set";
+        	// 
         	// msToolStripMenuItem
         	// 
         	this.msToolStripMenuItem.Name = "msToolStripMenuItem";
-        	this.msToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem.Text = "50 ms";
         	// 
         	// msToolStripMenuItem1
         	// 
         	this.msToolStripMenuItem1.Name = "msToolStripMenuItem1";
-        	this.msToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem1.Text = "75 ms";
         	// 
         	// msToolStripMenuItem2
         	// 
         	this.msToolStripMenuItem2.Name = "msToolStripMenuItem2";
-        	this.msToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem2.Text = "100 ms";
         	// 
         	// msToolStripMenuItem3
         	// 
         	this.msToolStripMenuItem3.Name = "msToolStripMenuItem3";
-        	this.msToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem3.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem3.Text = "150 ms";
         	// 
         	// msToolStripMenuItem4
         	// 
         	this.msToolStripMenuItem4.Name = "msToolStripMenuItem4";
-        	this.msToolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem4.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem4.Text = "200 ms";
         	// 
         	// msToolStripMenuItem5
         	// 
         	this.msToolStripMenuItem5.Name = "msToolStripMenuItem5";
-        	this.msToolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem5.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem5.Text = "300 ms";
         	// 
         	// msToolStripMenuItem6
         	// 
         	this.msToolStripMenuItem6.Name = "msToolStripMenuItem6";
-        	this.msToolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem6.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem6.Text = "400 ms";
         	// 
         	// msToolStripMenuItem7
         	// 
         	this.msToolStripMenuItem7.Name = "msToolStripMenuItem7";
-        	this.msToolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem7.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem7.Text = "500 ms";
-        	// 
-        	// setToolStripMenuItem
-        	// 
-        	this.setToolStripMenuItem.Name = "setToolStripMenuItem";
-        	this.setToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-        	this.setToolStripMenuItem.Text = "&Set";
         	// 
         	// alwaysOnTopToolStripMenuItem
         	// 
@@ -253,6 +253,7 @@ namespace ScreenMark
         	this.setPercentageToolStripMenuItem.Name = "setPercentageToolStripMenuItem";
         	this.setPercentageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.setPercentageToolStripMenuItem.Text = "&Set percentage";
+        	this.setPercentageToolStripMenuItem.Visible = false;
         	// 
         	// markPenToolStripMenuItem
         	// 
@@ -267,13 +268,13 @@ namespace ScreenMark
         	// colorToolStripMenuItem
         	// 
         	this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-        	this.colorToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+        	this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.colorToolStripMenuItem.Text = "&Color";
         	// 
         	// width5ToolStripMenuItem
         	// 
         	this.width5ToolStripMenuItem.Name = "width5ToolStripMenuItem";
-        	this.width5ToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+        	this.width5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.width5ToolStripMenuItem.Text = "&Width";
         	// 
         	// pixelRoundingToolStripMenuItem
@@ -284,18 +285,19 @@ namespace ScreenMark
         	this.pixelRoundingToolStripMenuItem.Name = "pixelRoundingToolStripMenuItem";
         	this.pixelRoundingToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
         	this.pixelRoundingToolStripMenuItem.Text = "Pixel &rounding";
+        	this.pixelRoundingToolStripMenuItem.Visible = false;
         	this.pixelRoundingToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnPixelRoundingToolStripMenuItemDropDownItemClicked);
         	// 
         	// floorToolStripMenuItem
         	// 
         	this.floorToolStripMenuItem.Name = "floorToolStripMenuItem";
-        	this.floorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+        	this.floorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.floorToolStripMenuItem.Text = "&Floor";
         	// 
         	// ceilingToolStripMenuItem
         	// 
         	this.ceilingToolStripMenuItem.Name = "ceilingToolStripMenuItem";
-        	this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+        	this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.ceilingToolStripMenuItem.Text = "&Ceiling";
         	// 
         	// enablehotkeysToolStripMenuItem
@@ -318,6 +320,7 @@ namespace ScreenMark
         	this.moveCursorToMarkToolStripMenuItem.Name = "moveCursorToMarkToolStripMenuItem";
         	this.moveCursorToMarkToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
         	this.moveCursorToMarkToolStripMenuItem.Text = "Move &cursor to mark";
+        	this.moveCursorToMarkToolStripMenuItem.Visible = false;
         	// 
         	// helpToolStripMenuItem
         	// 

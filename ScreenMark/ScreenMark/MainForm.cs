@@ -101,6 +101,78 @@ namespace ScreenMark
         public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
 
         /// <summary>
+        /// The rdw invalidate.
+        /// </summary>
+        const int RDW_INVALIDATE = 0x0001;
+
+        /// <summary>
+        /// The rdw allchildren.
+        /// </summary>
+        const int RDW_ALLCHILDREN = 0x0080;
+
+        /// <summary>
+        /// The rdw updatenow.
+        /// </summary>
+        const int RDW_UPDATENOW = 0x0100;
+
+        /// <summary>
+        /// Redraws the window.
+        /// </summary>
+        /// <returns><c>true</c>, if window was redrawn, <c>false</c> otherwise.</returns>
+        /// <param name="hwnd">Hwnd.</param>
+        /// <param name="rcUpdate">Rc update.</param>
+        /// <param name="regionUpdate">Region update.</param>
+        /// <param name="flags">Flags.</param>
+        [DllImport("User32.dll")]
+        static extern bool RedrawWindow(IntPtr hwnd, IntPtr rcUpdate, IntPtr regionUpdate, int flags);
+
+        /// <summary>
+        /// Gets the foreground window.
+        /// </summary>
+        /// <returns>The foreground window.</returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetForegroundWindow();
+
+        /// <summary>
+        /// Gets the window rect.
+        /// </summary>
+        /// <returns><c>true</c>, if window rect was gotten, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="lpRect">Lp rect.</param>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+
+        /// <summary>
+        /// Rect.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left; //Leftmost coordinate
+            public int Top; //Top coordinate
+            public int Right; //The rightmost coordinate
+            public int Bottom; //The bottom coordinate
+        }
+
+        /// <summary>
+        /// Invalidates the rect.
+        /// </summary>
+        /// <returns><c>true</c>, if rect was invalidated, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="lpRect">Lp rect.</param>
+        /// <param name="bErase">If set to <c>true</c> b erase.</param>
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool InvalidateRect(IntPtr hWnd, ref Rectangle lpRect, bool bErase);
+
+        /// <summary>
+        /// Gets the desktop window.
+        /// </summary>
+        /// <returns>The desktop window.</returns>
+        [DllImport("user32.dll")]
+        public extern static IntPtr GetDesktopWindow();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -259,6 +331,9 @@ namespace ScreenMark
 
                 // Enable timer
                 this.drawIntervalTimer.Stop();
+
+                // Remove mark from screen
+                this.ClearMark();
             }
         }
 
@@ -505,14 +580,10 @@ namespace ScreenMark
             if (clickedItem.Name == this.colorToolStripMenuItem.Name)
             {
                 // Show color dialog
-                DialogResult dialogResult = this.markColorDialog.ShowDialog();
+                this.markColorDialog.ShowDialog();
 
-                // Check the user clicked OK
-                if (dialogResult == DialogResult.OK)
-                {
-                    // Set mark color
-                    this.SetMarkColor(true);
-                }
+                // Set mark color
+                this.SetMarkColor(true);
             }
             else // Pen width
             {
@@ -543,11 +614,14 @@ namespace ScreenMark
             // Test for no settings data
             if (!setSettingsData)
             {
-                return;
+                // Set mark color dialog
+                this.markColorDialog.Color = Color.FromArgb(this.settingsData.MarkColor);
             }
-
-            // Set mark color on settings data
-            this.settingsData.MarkColor = this.markColorDialog.Color;
+            else
+            {
+                // Set mark color on settings data
+                this.settingsData.MarkColor = this.markColorDialog.Color.ToArgb();
+            }
         }
 
         /// <summary>
@@ -616,7 +690,7 @@ namespace ScreenMark
             var clickedItem = (ToolStripMenuItem)e.ClickedItem;
 
             // Draw interval [set to please compiler / unassigned variable]
-            int drawInterval = 50;
+            int drawInterval = this.settingsData.DrawInterval;
 
             // Check for set
             if (clickedItem.Text.StartsWith("&S", StringComparison.InvariantCulture))
@@ -642,13 +716,122 @@ namespace ScreenMark
         }
 
         /// <summary>
+        /// TODO Draws the mark. [0.x version. CAN BE *QUITE* OPTIMIZED]
+        /// </summary>
+        private void DrawMark()
+        {
+            // Invalidate previous mark
+            this.InvalidateMark();
+
+            // Set desktop device context
+            IntPtr desktopDC = GetDC(IntPtr.Zero);
+            Graphics g = Graphics.FromHdc(desktopDC);
+
+            // Create pen.
+            Pen pen = new Pen(this.markColorDialog.Color, this.settingsData.PenWidth);
+
+            // Declare line width, height, size
+            int lineWidth = 0, lineHeight = 0, lineSize = 0, halfLineSize = 0;
+
+            // Determine width and height
+            if (this.settingsData.MarkSizePixels > -1)
+            {
+                // Pixels
+                lineWidth = this.settingsData.MarkSizePixels;
+                lineHeight = this.settingsData.MarkSizePixels;
+                lineSize = this.settingsData.MarkSizePixels;
+                halfLineSize = lineSize / 2;
+            }
+            else
+            {
+                // TODO Percentage by height
+            }
+
+            // Declare centers
+            int heightCenter = 0, widthCenter = 0;
+
+            // Switch targets
+            switch (this.settingsData.SelectedRadioButton)
+            {
+                // screenCenterRadioButton
+                case "screenCenterRadioButton":
+                    heightCenter = Screen.PrimaryScreen.Bounds.Height / 2;
+                    widthCenter = Screen.PrimaryScreen.Bounds.Width / 2;
+
+                    break;
+
+                // workingAreaCenterRadioButton
+                case "workingAreaCenterRadioButton":
+                    heightCenter = Screen.PrimaryScreen.WorkingArea.Height / 2;
+                    widthCenter = Screen.PrimaryScreen.WorkingArea.Width / 2;
+
+                    break;
+
+                // activeWindowCenterRadioButton
+                case "activeWindowCenterRadioButton":
+
+                    // TODO Set foregronud window handle to compare [Comparison can be done earlier]
+                    IntPtr foregroundWindow = GetForegroundWindow();
+
+                    // Check for a match
+                    if (this.Handle == foregroundWindow)
+                    {
+                        // Halt flow
+                        return;
+                    }
+
+                    // Set rectangle
+                    RECT rect = new RECT();
+                    GetWindowRect(foregroundWindow, ref rect);
+
+                    // Set rectangle-based variables
+                    int width = rect.Right - rect.Left;
+                    int height = rect.Bottom - rect.Top;
+                    int x = rect.Left;
+                    int y = rect.Top;
+
+                    // Set centers
+                    widthCenter = x + width / 2;
+                    heightCenter = y + height / 2;
+
+                    break;
+            }
+
+            // Draw vertical and horizontal lines
+            g.DrawLine(pen, widthCenter - halfLineSize, heightCenter, widthCenter + halfLineSize, heightCenter);
+            g.DrawLine(pen, widthCenter, heightCenter - halfLineSize, widthCenter, heightCenter + halfLineSize);
+        }
+
+        /// <summary>
+        /// Clears the mark.
+        /// </summary>
+        private void ClearMark()
+        {
+            // Redraw desktop
+            RedrawWindow(IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_UPDATENOW);
+        }
+
+        /// <summary>
+        /// Invalidates the mark.
+        /// </summary>
+        private void InvalidateMark()
+        {
+            // TODO Set rectangle to invalidate [Can be optimized]
+            Rectangle invalidateRect = new Rectangle(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+
+            // Invalidate desktop
+            InvalidateRect(GetDesktopWindow(), ref invalidateRect, true);
+        }
+
+        /// <summary>
         /// Handles the draw interval timer tick event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnDrawIntervalTimerTick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Draw the mark
+            this.DrawMark();
         }
     }
 }

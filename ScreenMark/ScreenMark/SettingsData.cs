@@ -44,7 +44,7 @@ namespace PublicDomain
         /// Gets or sets the color of the mark.
         /// </summary>
         /// <value>The color of the mark.</value>
-        public Color MarkColor { get; set; } = Color.Blue;
+        public int MarkColor { get; set; } = Color.Red.ToArgb();
 
         /// <summary>
         /// Gets or sets the width of the pen.
@@ -80,6 +80,6 @@ namespace PublicDomain
         /// Gets or sets the draw interval.
         /// </summary>
         /// <value>The draw interval.</value>
-        public int DrawInterval { get; set; } = 50;
+        public int DrawInterval { get; set; } = 5;
     }
 }
