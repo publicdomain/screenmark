@@ -246,9 +246,6 @@ namespace ScreenMark
 
             // Move cursor
             this.moveCursorToMarkToolStripMenuItem.Checked = this.settingsData.MoveCursorToMark;
-
-            // TODO Enable Hotkeys
-            this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
         }
 
         /// <summary>
@@ -280,7 +277,7 @@ namespace ScreenMark
         public void RegisterHotkeys()
         {
             // Register ALT + SHIFT + M
-            RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.M));
+            RegisterHotKey(this.Handle, 0, MOD_CONTROL + MOD_ALT, Convert.ToInt16(Keys.M));
         }
 
         /// <summary>
