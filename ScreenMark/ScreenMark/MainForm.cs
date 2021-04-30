@@ -558,7 +558,7 @@ namespace ScreenMark
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #119, Week #17 @ April 29, 2021",
+                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #120, Week #17 @ April 30, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
