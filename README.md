@@ -31,7 +31,7 @@ Day #120, Week #17 @ April 30, 2021
 ## RELEASE SPONSORS:
 
 * Jesse Reichler (A.K.A. Mouser from DonationCoder.com)
-* Will *you* be our supporter? :)
+* *You* for the community :)
 
 You may support this project by expressing your excitement in the form of a Donation via Paypal @ [www.paypal.me/victorvls](https://www.paypal.me/victorvls) or by becoming a Patron @ [www.patreon.com/publicdomain](https://www.patreon.com/publicdomain).
 
