@@ -246,6 +246,10 @@ namespace ScreenMark
 
             // Move cursor
             this.moveCursorToMarkToolStripMenuItem.Checked = this.settingsData.MoveCursorToMark;
+
+            // Enable Hotkeys
+            this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
+            this.ProcessHotkeys();
         }
 
         /// <summary>
@@ -420,23 +424,33 @@ namespace ScreenMark
 
                 // Hotkeys
                 case "enablehotkeysToolStripMenuItem":
-                    // Enable/Disable hotkeys
-                    if (this.enablehotkeysToolStripMenuItem.Checked)
-                    {
-                        this.RegisterHotkeys();
-                    }
-                    else
-                    {
-                        this.UnregisterHotkeys();
-                    }
-
+                    // Set on settnigs data
                     this.settingsData.EnableHotkeys = this.enablehotkeysToolStripMenuItem.Checked;
+
+                    // Process hotkeys
+                    this.ProcessHotkeys();
                     break;
 
                 // Move cursor
                 case "moveCursorToMarkToolStripMenuItem":
                     this.settingsData.MoveCursorToMark = this.moveCursorToMarkToolStripMenuItem.Checked;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Processes the hotkeys.
+        /// </summary>
+        private void ProcessHotkeys()
+        {
+            // Enable/Disable hotkeys according to settings data 
+            if (this.settingsData.EnableHotkeys)
+            {
+                this.RegisterHotkeys();
+            }
+            else
+            {
+                this.UnregisterHotkeys();
             }
         }
 

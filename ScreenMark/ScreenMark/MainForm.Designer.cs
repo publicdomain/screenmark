@@ -56,6 +56,7 @@ namespace ScreenMark
             this.msToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.msToolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enablehotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.markSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setPixelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setPercentageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,6 @@ namespace ScreenMark
             this.pixelRoundingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ceilingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enablehotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.markAllScreensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveCursorToMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,7 +107,7 @@ namespace ScreenMark
             // 
             this.hotkeysToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hotkeysToolStripStatusLabel.Name = "hotkeysToolStripStatusLabel";
-            this.hotkeysToolStripStatusLabel.Size = new System.Drawing.Size(91, 17);
+            this.hotkeysToolStripStatusLabel.Size = new System.Drawing.Size(95, 17);
             this.hotkeysToolStripStatusLabel.Text = "CTRL + ALT + M";
             // 
             // menuStrip
@@ -226,11 +226,15 @@ namespace ScreenMark
             // 
             // alwaysOnTopToolStripMenuItem
             // 
-            this.alwaysOnTopToolStripMenuItem.Checked = true;
-            this.alwaysOnTopToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
             this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
+            // 
+            // enablehotkeysToolStripMenuItem
+            // 
+            this.enablehotkeysToolStripMenuItem.Name = "enablehotkeysToolStripMenuItem";
+            this.enablehotkeysToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.enablehotkeysToolStripMenuItem.Text = "Enable &hotkeys";
             // 
             // markSizeToolStripMenuItem
             // 
@@ -268,13 +272,13 @@ namespace ScreenMark
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.colorToolStripMenuItem.Text = "&Color";
             // 
             // width5ToolStripMenuItem
             // 
             this.width5ToolStripMenuItem.Name = "width5ToolStripMenuItem";
-            this.width5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.width5ToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.width5ToolStripMenuItem.Text = "&Width";
             // 
             // pixelRoundingToolStripMenuItem
@@ -291,22 +295,14 @@ namespace ScreenMark
             // floorToolStripMenuItem
             // 
             this.floorToolStripMenuItem.Name = "floorToolStripMenuItem";
-            this.floorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.floorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.floorToolStripMenuItem.Text = "&Floor";
             // 
             // ceilingToolStripMenuItem
             // 
             this.ceilingToolStripMenuItem.Name = "ceilingToolStripMenuItem";
-            this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ceilingToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.ceilingToolStripMenuItem.Text = "&Ceiling";
-            // 
-            // enablehotkeysToolStripMenuItem
-            // 
-            this.enablehotkeysToolStripMenuItem.Checked = true;
-            this.enablehotkeysToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enablehotkeysToolStripMenuItem.Name = "enablehotkeysToolStripMenuItem";
-            this.enablehotkeysToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.enablehotkeysToolStripMenuItem.Text = "Enable &hotkeys";
             // 
             // markAllScreensToolStripMenuItem
             // 
