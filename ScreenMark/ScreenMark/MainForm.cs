@@ -370,14 +370,12 @@ namespace ScreenMark
             {
                 // Set text 
                 this.markButton.Text = "&Stop";
+                this.markToolStripMenuItem.Text = "&Stop";
 
-                // TODO Set cursor position [May be replaced by Cursor.Position]
+                // Set cursor position
                 if (this.moveCursorToMarkToolStripMenuItem.Checked)
                 {
-                    Point point = this.GetCenterPoint();
-                    POINT p = new POINT(point.X, point.Y);
-                    ClientToScreen(this.Handle, ref p);
-                    SetCursorPos(p.x, p.y);
+                    Cursor.Position = this.GetCenterPoint();
                 }
 
                 // Enable timer
@@ -387,6 +385,7 @@ namespace ScreenMark
             {
                 // Set text 
                 this.markButton.Text = "&Mark";
+                this.markToolStripMenuItem.Text = "&Mark";
 
                 // Enable timer
                 this.drawIntervalTimer.Stop();
@@ -1048,7 +1047,8 @@ namespace ScreenMark
         /// <param name="e">Event arguments.</param>
         private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Restore from system tra
+            this.RestoreFromSystemTray();
         }
     }
 }
