@@ -812,6 +812,34 @@ namespace ScreenMark
             }
 
             // Declare centers
+            int widthCenter = 0, heightCenter = 0;
+
+            // Get center point
+            Point centerPoint = this.GetCenterPoint();
+
+            // Check if must halt
+            if (centerPoint.Equals(new Point(0, 0)))
+            {
+                // Halt flow
+                return;
+            }
+
+            // Set centers
+            widthCenter = centerPoint.X;
+            heightCenter = centerPoint.Y;
+
+            // Draw vertical and horizontal lines
+            g.DrawLine(pen, widthCenter - halfLineSize, heightCenter, widthCenter + halfLineSize, heightCenter);
+            g.DrawLine(pen, widthCenter, heightCenter - halfLineSize, widthCenter, heightCenter + halfLineSize);
+        }
+
+        /// <summary>
+        /// Gets the center point.
+        /// </summary>
+        /// <returns>The center point.</returns>
+        private Point GetCenterPoint()
+        {
+            // Declare centers
             int heightCenter = 0, widthCenter = 0;
 
             // Switch targets
@@ -840,8 +868,8 @@ namespace ScreenMark
                     // Check for a match
                     if (this.Handle == foregroundWindow)
                     {
-                        // Halt flow
-                        return;
+                        // Halt flow returning 0,0 point 
+                        return new Point(0, 0);
                     }
 
                     // Set rectangle
@@ -861,9 +889,8 @@ namespace ScreenMark
                     break;
             }
 
-            // Draw vertical and horizontal lines
-            g.DrawLine(pen, widthCenter - halfLineSize, heightCenter, widthCenter + halfLineSize, heightCenter);
-            g.DrawLine(pen, widthCenter, heightCenter - halfLineSize, widthCenter, heightCenter + halfLineSize);
+            // Return centers via Point
+            return new Point(widthCenter, heightCenter);
         }
 
         /// <summary>
@@ -896,6 +923,16 @@ namespace ScreenMark
         {
             // Draw the mark
             this.DrawMark();
+        }
+
+        /// <summary>
+        /// Handles the minimize tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }
