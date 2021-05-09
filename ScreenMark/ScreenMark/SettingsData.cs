@@ -81,5 +81,11 @@ namespace PublicDomain
         /// </summary>
         /// <value>The draw interval.</value>
         public int DrawInterval { get; set; } = 5;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> start minimized to tray.
+        /// </summary>
+        /// <value><c>true</c> if start minimized to tray; otherwise, <c>false</c>.</value>
+        public bool StartMinimizedToTray { get; set; } = false;
     }
 }

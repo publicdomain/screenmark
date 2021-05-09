@@ -68,12 +68,15 @@ namespace ScreenMark
         	this.ceilingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.markAllScreensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.moveCursorToMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.startMinimizedToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.autostartOnLoginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.moreReleasesPublicDomainGiftcomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.sourceCodeGithubcomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
         	this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
         	this.markButton = new System.Windows.Forms.Button();
         	this.screenCenterRadioButton = new System.Windows.Forms.RadioButton();
@@ -81,12 +84,14 @@ namespace ScreenMark
         	this.activeWindowCenterRadioButton = new System.Windows.Forms.RadioButton();
         	this.markColorDialog = new System.Windows.Forms.ColorDialog();
         	this.drawIntervalTimer = new System.Windows.Forms.Timer(this.components);
-        	this.startMinimizedToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+        	this.notifyIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+        	this.markToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.statusStrip.SuspendLayout();
         	this.menuStrip.SuspendLayout();
         	this.mainTableLayoutPanel.SuspendLayout();
+        	this.notifyIconContextMenuStrip.SuspendLayout();
         	this.SuspendLayout();
         	// 
         	// statusStrip
@@ -137,7 +142,7 @@ namespace ScreenMark
         	// exitToolStripMenuItem
         	// 
         	this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-        	this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
         	this.exitToolStripMenuItem.Text = "E&xit";
         	this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitToolStripMenuItemClick);
         	// 
@@ -152,7 +157,8 @@ namespace ScreenMark
         	        	        	this.pixelRoundingToolStripMenuItem,
         	        	        	this.markAllScreensToolStripMenuItem,
         	        	        	this.moveCursorToMarkToolStripMenuItem,
-        	        	        	this.startMinimizedToTrayToolStripMenuItem});
+        	        	        	this.startMinimizedToTrayToolStripMenuItem,
+        	        	        	this.autostartOnLoginToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
         	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
         	this.optionsToolStripMenuItem.Text = "&Options";
@@ -178,55 +184,55 @@ namespace ScreenMark
         	// setToolStripMenuItem
         	// 
         	this.setToolStripMenuItem.Name = "setToolStripMenuItem";
-        	this.setToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.setToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
         	this.setToolStripMenuItem.Text = "&Set";
         	// 
         	// msToolStripMenuItem
         	// 
         	this.msToolStripMenuItem.Name = "msToolStripMenuItem";
-        	this.msToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem.Text = "50 ms";
         	// 
         	// msToolStripMenuItem1
         	// 
         	this.msToolStripMenuItem1.Name = "msToolStripMenuItem1";
-        	this.msToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem1.Text = "75 ms";
         	// 
         	// msToolStripMenuItem2
         	// 
         	this.msToolStripMenuItem2.Name = "msToolStripMenuItem2";
-        	this.msToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem2.Text = "100 ms";
         	// 
         	// msToolStripMenuItem3
         	// 
         	this.msToolStripMenuItem3.Name = "msToolStripMenuItem3";
-        	this.msToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem3.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem3.Text = "150 ms";
         	// 
         	// msToolStripMenuItem4
         	// 
         	this.msToolStripMenuItem4.Name = "msToolStripMenuItem4";
-        	this.msToolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem4.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem4.Text = "200 ms";
         	// 
         	// msToolStripMenuItem5
         	// 
         	this.msToolStripMenuItem5.Name = "msToolStripMenuItem5";
-        	this.msToolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem5.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem5.Text = "300 ms";
         	// 
         	// msToolStripMenuItem6
         	// 
         	this.msToolStripMenuItem6.Name = "msToolStripMenuItem6";
-        	this.msToolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem6.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem6.Text = "400 ms";
         	// 
         	// msToolStripMenuItem7
         	// 
         	this.msToolStripMenuItem7.Name = "msToolStripMenuItem7";
-        	this.msToolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+        	this.msToolStripMenuItem7.Size = new System.Drawing.Size(111, 22);
         	this.msToolStripMenuItem7.Text = "500 ms";
         	// 
         	// alwaysOnTopToolStripMenuItem
@@ -322,6 +328,18 @@ namespace ScreenMark
         	this.moveCursorToMarkToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.moveCursorToMarkToolStripMenuItem.Text = "Move &cursor to mark";
         	// 
+        	// startMinimizedToTrayToolStripMenuItem
+        	// 
+        	this.startMinimizedToTrayToolStripMenuItem.Name = "startMinimizedToTrayToolStripMenuItem";
+        	this.startMinimizedToTrayToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.startMinimizedToTrayToolStripMenuItem.Text = "&Start minimized to tray";
+        	// 
+        	// autostartOnLoginToolStripMenuItem
+        	// 
+        	this.autostartOnLoginToolStripMenuItem.Name = "autostartOnLoginToolStripMenuItem";
+        	this.autostartOnLoginToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.autostartOnLoginToolStripMenuItem.Text = "&Autostart on login";
+        	// 
         	// helpToolStripMenuItem
         	// 
         	this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -368,6 +386,14 @@ namespace ScreenMark
         	this.aboutToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
         	this.aboutToolStripMenuItem.Text = "&About...";
         	this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutToolStripMenuItemClick);
+        	// 
+        	// minimizeToolStripMenuItem
+        	// 
+        	this.minimizeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+        	this.minimizeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("minimizeToolStripMenuItem.Image")));
+        	this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
+        	this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
+        	this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.OnMinimizeToolStripMenuItemClick);
         	// 
         	// mainTableLayoutPanel
         	// 
@@ -448,23 +474,32 @@ namespace ScreenMark
         	this.drawIntervalTimer.Interval = 50;
         	this.drawIntervalTimer.Tick += new System.EventHandler(this.OnDrawIntervalTimerTick);
         	// 
-        	// startMinimizedToTrayToolStripMenuItem
-        	// 
-        	this.startMinimizedToTrayToolStripMenuItem.Name = "startMinimizedToTrayToolStripMenuItem";
-        	this.startMinimizedToTrayToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.startMinimizedToTrayToolStripMenuItem.Text = "&Start minimized to tray";
-        	// 
-        	// minimizeToolStripMenuItem
-        	// 
-        	this.minimizeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-        	this.minimizeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("minimizeToolStripMenuItem.Image")));
-        	this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
-        	this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
-        	this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.OnMinimizeToolStripMenuItemClick);
-        	// 
         	// mainNotifyIcon
         	// 
         	this.mainNotifyIcon.Text = "Click to show";
+        	this.mainNotifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnMainNotifyIconMouseClick);
+        	// 
+        	// notifyIconContextMenuStrip
+        	// 
+        	this.notifyIconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.markToolStripMenuItem,
+        	        	        	this.showToolStripMenuItem});
+        	this.notifyIconContextMenuStrip.Name = "contextMenuStrip1";
+        	this.notifyIconContextMenuStrip.Size = new System.Drawing.Size(104, 48);
+        	// 
+        	// markToolStripMenuItem
+        	// 
+        	this.markToolStripMenuItem.Name = "markToolStripMenuItem";
+        	this.markToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+        	this.markToolStripMenuItem.Text = "&Mark";
+        	this.markToolStripMenuItem.Click += new System.EventHandler(this.OnMarkButtonClick);
+        	// 
+        	// showToolStripMenuItem
+        	// 
+        	this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+        	this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+        	this.showToolStripMenuItem.Text = "&Show";
+        	this.showToolStripMenuItem.Click += new System.EventHandler(this.OnShowToolStripMenuItemClick);
         	// 
         	// MainForm
         	// 
@@ -485,9 +520,14 @@ namespace ScreenMark
         	this.menuStrip.ResumeLayout(false);
         	this.menuStrip.PerformLayout();
         	this.mainTableLayoutPanel.ResumeLayout(false);
+        	this.notifyIconContextMenuStrip.ResumeLayout(false);
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem markToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip notifyIconContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem autostartOnLoginToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon mainNotifyIcon;
         private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startMinimizedToTrayToolStripMenuItem;

@@ -174,6 +174,40 @@ namespace ScreenMark
         public extern static IntPtr GetDesktopWindow();
 
         /// <summary>
+        /// Sets the cursor position.
+        /// </summary>
+        /// <returns>The cursor position.</returns>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        [DllImport("User32.Dll")]
+        public static extern long SetCursorPos(int x, int y);
+
+        /// <summary>
+        /// Clients to screen.
+        /// </summary>
+        /// <returns><c>true</c>, if to screen was cliented, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="point">Point.</param>
+        [DllImport("User32.Dll")]
+        public static extern bool ClientToScreen(IntPtr hWnd, ref POINT point);
+
+        /// <summary>
+        /// Point.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int x;
+            public int y;
+
+            public POINT(int X, int Y)
+            {
+                x = X;
+                y = Y;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -188,6 +222,9 @@ namespace ScreenMark
 
             // Set public domain weekly tool strip menu item image
             this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+            // Set taskbar icon
+            this.mainNotifyIcon.Icon = this.Icon;
 
             /* Settings data */
 
@@ -244,8 +281,11 @@ namespace ScreenMark
             this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.TopMost;
             this.TopMost = this.settingsData.TopMost;
 
-            // Move cursor
+            // Move cursor to mark
             this.moveCursorToMarkToolStripMenuItem.Checked = this.settingsData.MoveCursorToMark;
+
+            // Start minimized to tray
+            this.startMinimizedToTrayToolStripMenuItem.Checked = this.settingsData.StartMinimizedToTray;
 
             // Enable Hotkeys
             this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
@@ -330,6 +370,15 @@ namespace ScreenMark
             {
                 // Set text 
                 this.markButton.Text = "&Stop";
+
+                // TODO Set cursor position [May be replaced by Cursor.Position]
+                if (this.moveCursorToMarkToolStripMenuItem.Checked)
+                {
+                    Point point = this.GetCenterPoint();
+                    POINT p = new POINT(point.X, point.Y);
+                    ClientToScreen(this.Handle, ref p);
+                    SetCursorPos(p.x, p.y);
+                }
 
                 // Enable timer
                 this.drawIntervalTimer.Start();
@@ -434,6 +483,11 @@ namespace ScreenMark
                 // Move cursor
                 case "moveCursorToMarkToolStripMenuItem":
                     this.settingsData.MoveCursorToMark = this.moveCursorToMarkToolStripMenuItem.Checked;
+                    break;
+
+                // Start minimized to tray
+                case "startMinimizedToTrayToolStripMenuItem":
+                    this.settingsData.StartMinimizedToTray = this.startMinimizedToTrayToolStripMenuItem.Checked;
                     break;
             }
         }
@@ -894,6 +948,57 @@ namespace ScreenMark
         }
 
         /// <summary>
+        /// Sends the program to the system tray.
+        /// </summary>
+        private void SendToSystemTray()
+        {
+            // Hide main form
+            this.Hide();
+
+            // Remove from task bar
+            this.ShowInTaskbar = false;
+
+            // Minimize
+            this.WindowState = FormWindowState.Minimized;
+
+            // Show notify icon 
+            this.mainNotifyIcon.Visible = true;
+        }
+
+        /// <summary>
+        /// Restores the window back from system tray to the foreground.
+        /// </summary>
+        private void RestoreFromSystemTray()
+        {
+            // Make form visible again
+            this.Show();
+
+            // Restore in task bar
+            this.ShowInTaskbar = true;
+
+            // Return window back to normal
+            this.WindowState = FormWindowState.Normal;
+
+            // Hide system tray icon
+            this.mainNotifyIcon.Visible = false;
+        }
+
+        /// <summary>
+        /// Handles the main notify icon mouse click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainNotifyIconMouseClick(object sender, MouseEventArgs e)
+        {
+            // Check for left click
+            if (e.Button == MouseButtons.Left)
+            {
+                // Restore window 
+                this.RestoreFromSystemTray();
+            }
+        }
+
+        /// <summary>
         /// Clears the mark.
         /// </summary>
         private void ClearMark()
@@ -931,6 +1036,17 @@ namespace ScreenMark
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // Send to system tray
+            this.SendToSystemTray();
+        }
+
+        /// <summary>
+        /// Handles the show tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
         {
             // TODO Add code
         }
