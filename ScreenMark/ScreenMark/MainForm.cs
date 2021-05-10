@@ -17,6 +17,7 @@ namespace ScreenMark
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using Microsoft.VisualBasic;
+    using Microsoft.Win32;
     using PublicDomain;
 
     /// <summary>
@@ -302,6 +303,10 @@ namespace ScreenMark
                 this.SendToSystemTray();
             }
 
+            // Process startup registry action
+            this.autostartOnloginToolStripMenuItem.Checked = this.settingsData.AutostartOnLogin;
+            this.ProcessRunAtStartupRegistry();
+
             // Enable Hotkeys
             this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
             this.ProcessHotkeys();
@@ -310,6 +315,32 @@ namespace ScreenMark
 
             // Set draw interval timer elapsed
             Program.DrawIntervalTimer.Elapsed += this.OnDrawIntervalTimerTick;
+        }
+
+        /// <summary>
+        /// Processes the run at startup registry action.
+        /// </summary>
+        private void ProcessRunAtStartupRegistry()
+        {
+            // Open registry key
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
+            {
+                // Check for run at startup in settings data
+                if (this.settingsData.AutostartOnLogin)
+                {
+                    // Add app value
+                    registryKey.SetValue(Application.ProductName, $"\"{Application.ExecutablePath}\"");
+                }
+                else
+                {
+                    // Check for app value
+                    if (registryKey.GetValue(Application.ProductName) != null)
+                    {
+                        // Erase app value
+                        registryKey.DeleteValue(Application.ProductName, false);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -1015,7 +1046,7 @@ namespace ScreenMark
             if (this.enablehotkeysToolStripMenuItem.Checked)
             {
                 // Re-register hotkeys
-                //this.RegisterHotkeys();
+                this.RegisterHotkeys();
             }
         }
 
