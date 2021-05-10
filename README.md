@@ -23,7 +23,7 @@ v0.2.0
 - Autostart on login.
 - Start minimized to tray.
 
-Day #130, Week #19 @ May 10, 2021"
+Day #130, Week #19 @ May 10, 2021
 
 v0.1.0:
 - Marks screen center.
