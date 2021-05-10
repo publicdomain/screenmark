@@ -212,13 +212,11 @@ namespace ScreenMark
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
 
-            /* Set hotkey native window */
-
-            // Set the native window
+            // Set hotkey native window
             this.hotkeyNativeWindow = new HotkeyNativeWindow();
 
-            // Set the event hanfler
-            this.hotkeyNativeWindow.HorkeyPressed += OnHotkeyPressed;
+            // Set the hotkey event hanfler
+            this.hotkeyNativeWindow.HorkeyPressed += this.OnHotkeyPressed;
 
             /* Set icons */
 
@@ -294,6 +292,7 @@ namespace ScreenMark
 
             // Autostart on login
             this.autostartOnloginToolStripMenuItem.Checked = this.settingsData.AutostartOnLogin;
+            this.ProcessRunAtStartupRegistry();
 
             // Start minimized to tray
             this.startMinimizedToTrayToolStripMenuItem.Checked = this.settingsData.StartMinimizedToTray;
@@ -302,10 +301,6 @@ namespace ScreenMark
                 // Send to tray
                 this.SendToSystemTray();
             }
-
-            // Process startup registry action
-            this.autostartOnloginToolStripMenuItem.Checked = this.settingsData.AutostartOnLogin;
-            this.ProcessRunAtStartupRegistry();
 
             // Enable Hotkeys
             this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
@@ -348,7 +343,7 @@ namespace ScreenMark
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnHotkeyPressed(object sender, EventArgs e)
+        public void OnHotkeyPressed(object sender, EventArgs e)
         {
             // Hit mark button
             this.markButton.PerformClick();
@@ -543,6 +538,9 @@ namespace ScreenMark
                 // Autostart on login
                 case "autostartOnloginToolStripMenuItem":
                     this.settingsData.AutostartOnLogin = this.autostartOnloginToolStripMenuItem.Checked;
+
+                    // Process autostart registry action
+                    this.ProcessRunAtStartupRegistry();
                     break;
 
                 // Start minimized to tray
@@ -672,7 +670,7 @@ namespace ScreenMark
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #120, Week #17 @ April 30, 2021",
+                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #130, Week #19 @ May 10, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
