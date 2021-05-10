@@ -288,6 +288,12 @@ namespace ScreenMark
             // Move cursor to mark
             this.moveCursorToMarkToolStripMenuItem.Checked = this.settingsData.MoveCursorToMark;
 
+            // Click mark center
+            this.clickMarkCenterToolStripMenuItem.Checked = this.settingsData.ClickMarkCenter;
+
+            // Autostart on login
+            this.autostartOnloginToolStripMenuItem.Checked = this.settingsData.AutostartOnLogin;
+
             // Start minimized to tray
             this.startMinimizedToTrayToolStripMenuItem.Checked = this.settingsData.StartMinimizedToTray;
             if (this.settingsData.StartMinimizedToTray)
