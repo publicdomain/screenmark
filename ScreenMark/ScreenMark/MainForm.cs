@@ -374,14 +374,22 @@ namespace ScreenMark
                 this.markButton.Text = "&Stop";
                 this.markToolStripMenuItem.Text = "&Stop";
 
+                // Set center opint
+                Point centerPoint = this.GetCenterPoint();
+
                 // Set cursor position
                 if (this.moveCursorToMarkToolStripMenuItem.Checked)
                 {
-                    // Set center opint
-                    Point centerPoint = this.GetCenterPoint();
-
                     // Move cursor to center point
                     SetCursorPos(centerPoint.X, centerPoint.Y);
+                }
+
+                // Click mark center
+                if (this.clickMarkCenterToolStripMenuItem.Checked)
+                {
+                    // Perform left click
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, centerPoint.X, centerPoint.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTUP, centerPoint.X, centerPoint.Y, 0, 0);
                 }
 
                 // Enable timer
@@ -488,6 +496,16 @@ namespace ScreenMark
                 // Move cursor
                 case "moveCursorToMarkToolStripMenuItem":
                     this.settingsData.MoveCursorToMark = this.moveCursorToMarkToolStripMenuItem.Checked;
+                    break;
+
+                // Click mark center
+                case "clickMarkCenterToolStripMenuItem":
+                    this.settingsData.ClickMarkCenter = this.clickMarkCenterToolStripMenuItem.Checked;
+                    break;
+
+                // Autostart on login
+                case "autostartOnloginToolStripMenuItem":
+                    this.settingsData.AutostartOnLogin = this.autostartOnloginToolStripMenuItem.Checked;
                     break;
 
                 // Start minimized to tray
