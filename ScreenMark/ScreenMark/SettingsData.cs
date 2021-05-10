@@ -41,6 +41,12 @@ namespace PublicDomain
         public bool MoveCursorToMark { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> click mark center.
+        /// </summary>
+        /// <value><c>true</c> if click mark center; otherwise, <c>false</c>.</value>
+        public bool ClickMarkCenter { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets the color of the mark.
         /// </summary>
         /// <value>The color of the mark.</value>
@@ -87,5 +93,11 @@ namespace PublicDomain
         /// </summary>
         /// <value><c>true</c> if start minimized to tray; otherwise, <c>false</c>.</value>
         public bool StartMinimizedToTray { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> autostart on login.
+        /// </summary>
+        /// <value><c>true</c> if autostart on login; otherwise, <c>false</c>.</value>
+        public bool AutostartOnLogin { get; set; } = false;
     }
 }

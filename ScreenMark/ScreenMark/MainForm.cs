@@ -137,10 +137,31 @@ namespace ScreenMark
         /// Sets the cursor position.
         /// </summary>
         /// <returns><c>true</c>, if cursor position was set, <c>false</c> otherwise.</returns>
-        /// <param name="X">X.</param>
-        /// <param name="Y">Y.</param>
-        [DllImport("User32.dll")]
-        private static extern bool SetCursorPos(int X, int Y);
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern bool SetCursorPos(int x, int y);
+
+        /// <summary>
+        /// Mouses the event.
+        /// </summary>
+        /// <param name="dwFlags">Dw flags.</param>
+        /// <param name="dx">Dx.</param>
+        /// <param name="dy">Dy.</param>
+        /// <param name="cButtons">C buttons.</param>
+        /// <param name="dwExtraInfo">Dw extra info.</param>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        /// <summary>
+        /// The mouseeventf leftdown.
+        /// </summary>
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+
+        /// <summary>
+        /// The mouseeventf leftup.
+        /// </summary>
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
 
         /// <summary>
         /// Registers the hot key.
@@ -176,11 +197,6 @@ namespace ScreenMark
         /// The mod alternate.
         /// </summary>
         private const int MOD_ALT = 0x1;
-
-        /// <summary>
-        /// The wm hotkey.
-        /// </summary>
-        private static int WM_HOTKEY = 0x0312;
 
         /// <summary>
         /// The hotkey native window.
