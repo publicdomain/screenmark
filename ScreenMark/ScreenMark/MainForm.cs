@@ -46,46 +46,6 @@ namespace ScreenMark
         private int drawTarget = 0;
 
         /// <summary>
-        /// The mod shift.
-        /// </summary>
-        public const int MOD_SHIFT = 0x4;
-
-        /// <summary>
-        /// The mod control.
-        /// </summary>
-        public const int MOD_CONTROL = 0x2;
-
-        /// <summary>
-        /// The mod alternate.
-        /// </summary>
-        public const int MOD_ALT = 0x1;
-
-        /// <summary>
-        /// The wm hotkey.
-        /// </summary>
-        private const int WM_HOTKEY = 0x312;
-
-        /// <summary>
-        /// Registers the hot key.
-        /// </summary>
-        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
-        /// <param name="hWnd">H window.</param>
-        /// <param name="id">Identifier.</param>
-        /// <param name="fsModifiers">Fs modifiers.</param>
-        /// <param name="vk">Vk.</param>
-        [DllImport("User32")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-
-        /// <summary>
-        /// Unregisters the hot key.
-        /// </summary>
-        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
-        /// <param name="hWnd">H window.</param>
-        /// <param name="id">Identifier.</param>
-        [DllImport("User32")]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        /// <summary>
         /// Gets the dc.
         /// </summary>
         /// <returns>The dc.</returns>
@@ -176,36 +136,56 @@ namespace ScreenMark
         /// <summary>
         /// Sets the cursor position.
         /// </summary>
-        /// <returns>The cursor position.</returns>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        [DllImport("User32.Dll")]
-        public static extern long SetCursorPos(int x, int y);
+        /// <returns><c>true</c>, if cursor position was set, <c>false</c> otherwise.</returns>
+        /// <param name="X">X.</param>
+        /// <param name="Y">Y.</param>
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
 
         /// <summary>
-        /// Clients to screen.
+        /// Registers the hot key.
         /// </summary>
-        /// <returns><c>true</c>, if to screen was cliented, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
         /// <param name="hWnd">H window.</param>
-        /// <param name="point">Point.</param>
-        [DllImport("User32.Dll")]
-        public static extern bool ClientToScreen(IntPtr hWnd, ref POINT point);
+        /// <param name="id">Identifier.</param>
+        /// <param name="fsModifiers">Fs modifiers.</param>
+        /// <param name="vk">Vk.</param>
+        [DllImport("User32")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
 
         /// <summary>
-        /// Point.
+        /// Unregisters the hot key.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
-        {
-            public int x;
-            public int y;
+        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        [DllImport("User32")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-            public POINT(int X, int Y)
-            {
-                x = X;
-                y = Y;
-            }
-        }
+        /// <summary>
+        /// The mod shift.
+        /// </summary>
+        private const int MOD_SHIFT = 0x4;
+
+        /// <summary>
+        /// The mod control.
+        /// </summary>
+        private const int MOD_CONTROL = 0x2;
+
+        /// <summary>
+        /// The mod alternate.
+        /// </summary>
+        private const int MOD_ALT = 0x1;
+
+        /// <summary>
+        /// The wm hotkey.
+        /// </summary>
+        private static int WM_HOTKEY = 0x0312;
+
+        /// <summary>
+        /// The hotkey native window.
+        /// </summary>
+        private HotkeyNativeWindow hotkeyNativeWindow = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
@@ -214,6 +194,14 @@ namespace ScreenMark
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set hotkey native window */
+
+            // Set the native window
+            this.hotkeyNativeWindow = new HotkeyNativeWindow();
+
+            // Set the event hanfler
+            this.hotkeyNativeWindow.HorkeyPressed += OnHotkeyPressed;
 
             /* Set icons */
 
@@ -286,33 +274,31 @@ namespace ScreenMark
 
             // Start minimized to tray
             this.startMinimizedToTrayToolStripMenuItem.Checked = this.settingsData.StartMinimizedToTray;
+            if (this.settingsData.StartMinimizedToTray)
+            {
+                // Send to tray
+                this.SendToSystemTray();
+            }
 
             // Enable Hotkeys
             this.enablehotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
             this.ProcessHotkeys();
+
+            /* Timer */
+
+            // Set draw interval timer elapsed
+            Program.DrawIntervalTimer.Elapsed += this.OnDrawIntervalTimerTick;
         }
 
         /// <summary>
-        /// Window procedure.
+        /// Handler the hotkey pressed event.
         /// </summary>
-        /// <param name="m">M.</param>
-        protected override void WndProc(ref Message m)
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnHotkeyPressed(object sender, EventArgs e)
         {
-            try
-            {
-                // Check for hotkey message and there are hotkeys registered
-                if (m.Msg == WM_HOTKEY)
-                {
-                    // Hit mark button
-                    this.markButton.PerformClick();
-                }
-            }
-            catch
-            {
-                // TODO Advise user
-            }
-
-            base.WndProc(ref m);
+            // Hit mark button
+            this.markButton.PerformClick();
         }
 
         /// <summary>
@@ -321,7 +307,7 @@ namespace ScreenMark
         public void RegisterHotkeys()
         {
             // Register ALT + SHIFT + M
-            RegisterHotKey(this.Handle, 0, MOD_CONTROL + MOD_ALT, Convert.ToInt16(Keys.M));
+            RegisterHotKey(this.hotkeyNativeWindow.Handle, 0, MOD_CONTROL + MOD_ALT, Convert.ToInt16(Keys.M));
         }
 
         /// <summary>
@@ -330,7 +316,7 @@ namespace ScreenMark
         public void UnregisterHotkeys()
         {
             // Unregister active hotkey
-            UnregisterHotKey(this.Handle, 0);
+            UnregisterHotKey(this.hotkeyNativeWindow.Handle, 0);
         }
 
         /// <summary>
@@ -375,11 +361,15 @@ namespace ScreenMark
                 // Set cursor position
                 if (this.moveCursorToMarkToolStripMenuItem.Checked)
                 {
-                    Cursor.Position = this.GetCenterPoint();
+                    // Set center opint
+                    Point centerPoint = this.GetCenterPoint();
+
+                    // Move cursor to center point
+                    SetCursorPos(centerPoint.X, centerPoint.Y);
                 }
 
                 // Enable timer
-                this.drawIntervalTimer.Start();
+                Program.DrawIntervalTimer.Start();
             }
             else
             {
@@ -387,8 +377,8 @@ namespace ScreenMark
                 this.markButton.Text = "&Mark";
                 this.markToolStripMenuItem.Text = "&Mark";
 
-                // Enable timer
-                this.drawIntervalTimer.Stop();
+                // Disable timer
+                Program.DrawIntervalTimer.Stop();
 
                 // Remove mark from screen
                 this.ClearMark();
@@ -980,6 +970,13 @@ namespace ScreenMark
 
             // Hide system tray icon
             this.mainNotifyIcon.Visible = false;
+
+            // Check if must re-enable hotkeys 
+            if (this.enablehotkeysToolStripMenuItem.Checked)
+            {
+                // Re-register hotkeys
+                //this.RegisterHotkeys();
+            }
         }
 
         /// <summary>
@@ -1027,6 +1024,13 @@ namespace ScreenMark
         {
             // Draw the mark
             this.DrawMark();
+
+            // Check for an active sign
+            if (this.markButton.Text == "&Stop")
+            {
+                // Re-enable it
+                Program.DrawIntervalTimer.Start();
+            }
         }
 
         /// <summary>

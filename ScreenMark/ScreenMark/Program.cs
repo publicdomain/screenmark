@@ -14,11 +14,20 @@ namespace ScreenMark
     internal sealed class Program
     {
         /// <summary>
+        /// The draw interval timer.
+        /// </summary>
+        public static System.Timers.Timer DrawIntervalTimer = new System.Timers.Timer();
+
+        /// <summary>
         /// Program entry point.
         /// </summary>
         [STAThread]
         private static void Main(string[] args)
         {
+            // Set timer settings
+            DrawIntervalTimer.AutoReset = false;
+            DrawIntervalTimer.Interval = 50;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
