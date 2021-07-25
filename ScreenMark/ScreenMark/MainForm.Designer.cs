@@ -68,6 +68,8 @@ namespace ScreenMark
         	this.ceilingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.markAllScreensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.moveCursorToMarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.clickMarkCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.autostartOnloginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.startMinimizedToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.moreReleasesPublicDomainGiftcomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,8 +89,6 @@ namespace ScreenMark
         	this.markToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-        	this.autostartOnloginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.clickMarkCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.statusStrip.SuspendLayout();
         	this.menuStrip.SuspendLayout();
         	this.mainTableLayoutPanel.SuspendLayout();
@@ -116,8 +116,8 @@ namespace ScreenMark
         	// 
         	this.hotkeysToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.hotkeysToolStripStatusLabel.Name = "hotkeysToolStripStatusLabel";
-        	this.hotkeysToolStripStatusLabel.Size = new System.Drawing.Size(95, 17);
-        	this.hotkeysToolStripStatusLabel.Text = "CTRL + ALT + M";
+        	this.hotkeysToolStripStatusLabel.Size = new System.Drawing.Size(96, 17);
+        	this.hotkeysToolStripStatusLabel.Text = "ALT + SHIFT + S";
         	// 
         	// menuStrip
         	// 
@@ -330,6 +330,18 @@ namespace ScreenMark
         	this.moveCursorToMarkToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.moveCursorToMarkToolStripMenuItem.Text = "Move &cursor to mark";
         	// 
+        	// clickMarkCenterToolStripMenuItem
+        	// 
+        	this.clickMarkCenterToolStripMenuItem.Name = "clickMarkCenterToolStripMenuItem";
+        	this.clickMarkCenterToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.clickMarkCenterToolStripMenuItem.Text = "&Click mark center";
+        	// 
+        	// autostartOnloginToolStripMenuItem
+        	// 
+        	this.autostartOnloginToolStripMenuItem.Name = "autostartOnloginToolStripMenuItem";
+        	this.autostartOnloginToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.autostartOnloginToolStripMenuItem.Text = "Autostart on &login";
+        	// 
         	// startMinimizedToTrayToolStripMenuItem
         	// 
         	this.startMinimizedToTrayToolStripMenuItem.Name = "startMinimizedToTrayToolStripMenuItem";
@@ -351,15 +363,15 @@ namespace ScreenMark
         	// moreReleasesPublicDomainGiftcomToolStripMenuItem
         	// 
         	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Name = "moreReleasesPublicDomainGiftcomToolStripMenuItem";
-        	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
-        	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Text = "&More releases @ PublicDomainGift.com";
+        	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+        	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Text = "&Weekly releases @ PublicDomainWeekly.com";
         	this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Click += new System.EventHandler(this.OnMoreReleasesPublicDomainGiftcomToolStripMenuItemClick);
         	// 
         	// originalThreadDonationCodercomToolStripMenuItem
         	// 
         	this.originalThreadDonationCodercomToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("originalThreadDonationCodercomToolStripMenuItem.Image")));
         	this.originalThreadDonationCodercomToolStripMenuItem.Name = "originalThreadDonationCodercomToolStripMenuItem";
-        	this.originalThreadDonationCodercomToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
+        	this.originalThreadDonationCodercomToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
         	this.originalThreadDonationCodercomToolStripMenuItem.Text = "&Original thread @ DonationCoder.com";
         	this.originalThreadDonationCodercomToolStripMenuItem.Click += new System.EventHandler(this.OnOriginalThreadDonationCodercomToolStripMenuItemClick);
         	// 
@@ -367,19 +379,19 @@ namespace ScreenMark
         	// 
         	this.sourceCodeGithubcomToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sourceCodeGithubcomToolStripMenuItem.Image")));
         	this.sourceCodeGithubcomToolStripMenuItem.Name = "sourceCodeGithubcomToolStripMenuItem";
-        	this.sourceCodeGithubcomToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
+        	this.sourceCodeGithubcomToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
         	this.sourceCodeGithubcomToolStripMenuItem.Text = "Source code @ Github.com";
         	this.sourceCodeGithubcomToolStripMenuItem.Click += new System.EventHandler(this.OnSourceCodeGithubcomToolStripMenuItemClick);
         	// 
         	// toolStripSeparator5
         	// 
         	this.toolStripSeparator5.Name = "toolStripSeparator5";
-        	this.toolStripSeparator5.Size = new System.Drawing.Size(281, 6);
+        	this.toolStripSeparator5.Size = new System.Drawing.Size(310, 6);
         	// 
         	// aboutToolStripMenuItem
         	// 
         	this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        	this.aboutToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
+        	this.aboutToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
         	this.aboutToolStripMenuItem.Text = "&About...";
         	this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutToolStripMenuItemClick);
         	// 
@@ -500,18 +512,6 @@ namespace ScreenMark
         	this.exitToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
         	this.exitToolStripMenuItem1.Text = "&Exit";
         	this.exitToolStripMenuItem1.Click += new System.EventHandler(this.OnExitToolStripMenuItemClick);
-        	// 
-        	// autostartOnloginToolStripMenuItem
-        	// 
-        	this.autostartOnloginToolStripMenuItem.Name = "autostartOnloginToolStripMenuItem";
-        	this.autostartOnloginToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.autostartOnloginToolStripMenuItem.Text = "Autostart on &login";
-        	// 
-        	// clickMarkCenterToolStripMenuItem
-        	// 
-        	this.clickMarkCenterToolStripMenuItem.Name = "clickMarkCenterToolStripMenuItem";
-        	this.clickMarkCenterToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.clickMarkCenterToolStripMenuItem.Text = "&Click mark center";
         	// 
         	// MainForm
         	// 

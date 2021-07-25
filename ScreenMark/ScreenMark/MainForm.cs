@@ -460,7 +460,7 @@ namespace ScreenMark
         private void OnMoreReleasesPublicDomainGiftcomToolStripMenuItemClick(object sender, EventArgs e)
         {
             // Open current website
-            Process.Start("https://publicdomaingift.com");
+            Process.Start("https://publicdomainweekly.com");
         }
 
         /// <summary>
