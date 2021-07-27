@@ -34,7 +34,7 @@ namespace ScreenMark
         /// <summary>
         /// The settings data.
         /// </summary>
-        private SettingsData settingsData = null;
+        public SettingsData settingsData = null;
 
         /// <summary>
         /// The settings data path.
@@ -200,9 +200,10 @@ namespace ScreenMark
         private const int MOD_ALT = 0x1;
 
         /// <summary>
-        /// The hotkey native window.
+        /// The wm hotkey.
         /// </summary>
-        private HotkeyNativeWindow hotkeyNativeWindow = null;
+        private static int WM_HOTKEY = 0x0312;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ScreenMark.MainForm"/> class.
@@ -211,12 +212,6 @@ namespace ScreenMark
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
-
-            // Set hotkey native window
-            this.hotkeyNativeWindow = new HotkeyNativeWindow();
-
-            // Set the hotkey event hanfler
-            this.hotkeyNativeWindow.HorkeyPressed += this.OnHotkeyPressed;
 
             /* Set icons */
 
@@ -347,24 +342,6 @@ namespace ScreenMark
         {
             // Hit mark button
             this.markButton.PerformClick();
-        }
-
-        /// <summary>
-        /// Registers the hotkeys.
-        /// </summary>
-        public void RegisterHotkeys()
-        {
-            // Register ALT + SHIFT + M
-            RegisterHotKey(this.hotkeyNativeWindow.Handle, 0, MOD_CONTROL + MOD_ALT, Convert.ToInt16(Keys.M));
-        }
-
-        /// <summary>
-        /// Unregisters the hotkeys.
-        /// </summary>
-        public void UnregisterHotkeys()
-        {
-            // Unregister active hotkey
-            UnregisterHotKey(this.hotkeyNativeWindow.Handle, 0);
         }
 
         /// <summary>
@@ -551,20 +528,12 @@ namespace ScreenMark
         }
 
         /// <summary>
-        /// Processes the hotkeys.
+        /// Creates the handle.
         /// </summary>
-        private void ProcessHotkeys()
+        /*protected override void CreateHandle()
         {
-            // Enable/Disable hotkeys according to settings data 
-            if (this.settingsData.EnableHotkeys)
-            {
-                this.RegisterHotkeys();
-            }
-            else
-            {
-                this.UnregisterHotkeys();
-            }
-        }
+            this.ProcessHotkeys();
+        }*/
 
         /// <summary>
         /// Marks the size tool strip menu item drop down item clicked event.
@@ -776,6 +745,61 @@ namespace ScreenMark
                     this.width5ToolStripMenuItem.Text = $"&Width ({penWidth})";
                 }
             }
+        }
+
+        /// <summary>
+        /// Windows the proc.
+        /// </summary>
+        /// <param name="m">M.</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_HOTKEY)
+            {
+                this.OnHotkeyPressed(this, null);
+            }
+        }
+
+        /// <summary>
+        /// Processes the hotkeys.
+        /// </summary>
+        private void ProcessHotkeys()
+        {
+            try
+            {
+                // Enable/Disable hotkeys according to settings data 
+                if (this.settingsData.EnableHotkeys)
+                {
+                    this.RegisterHotkeys();
+                }
+                else
+                {
+                    this.UnregisterHotkeys();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Let it fall through
+            }
+        }
+
+        /// <summary>
+        /// Registers the hotkeys.
+        /// </summary>
+        public void RegisterHotkeys()
+        {
+            // Register SHIFT + ALT + S
+            RegisterHotKey(this.Handle, 0, MOD_SHIFT + MOD_ALT, Convert.ToInt16(Keys.S));
+        }
+
+        /// <summary>
+        /// Unregisters the hotkeys.
+        /// </summary>
+        public void UnregisterHotkeys()
+        {
+            // Unregister active hotkey
+            UnregisterHotKey(this.Handle, 0);
         }
 
         /// <summary>
@@ -1010,11 +1034,14 @@ namespace ScreenMark
         /// </summary>
         private void SendToSystemTray()
         {
-            // Hide main form
-            this.Hide();
-
             // Remove from task bar
-            this.ShowInTaskbar = false;
+            //this.ShowInTaskbar = false;
+
+            // Hide main form
+            //this.Hide();
+
+            // Process hotkeys
+            this.ProcessHotkeys();
 
             // Minimize
             this.WindowState = FormWindowState.Minimized;
@@ -1028,24 +1055,20 @@ namespace ScreenMark
         /// </summary>
         private void RestoreFromSystemTray()
         {
-            // Make form visible again
-            this.Show();
-
             // Restore in task bar
-            this.ShowInTaskbar = true;
+            //this.ShowInTaskbar = true;
+
+            // Make form visible again
+            //this.Show();
+
+            // Process hotkeys
+            this.ProcessHotkeys();
 
             // Return window back to normal
             this.WindowState = FormWindowState.Normal;
 
             // Hide system tray icon
             this.mainNotifyIcon.Visible = false;
-
-            // Check if must re-enable hotkeys 
-            if (this.enablehotkeysToolStripMenuItem.Checked)
-            {
-                // Re-register hotkeys
-                this.RegisterHotkeys();
-            }
         }
 
         /// <summary>
