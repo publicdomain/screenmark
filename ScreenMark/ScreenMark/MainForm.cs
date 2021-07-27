@@ -639,7 +639,7 @@ namespace ScreenMark
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #130, Week #19 @ May 10, 2021",
+                $"Made for: Curt{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #208, Week #30 @ July 27, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
