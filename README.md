@@ -17,6 +17,10 @@ Targets Microsoft .NET framework v4.5 (Native to Windows 8+)
 
 Notes:
 
+v0.2.1
+- Hotkeys on SHIFT + ALT + S.
+- Prevent Hotkey handle removal.
+
 v0.2.0
 - Move cursor to mark.
 - Click mark center.
